@@ -1,0 +1,39 @@
+//Count the subset sum with given sum
+import java.util.*;
+public class DynamicProgramming 
+{
+	static int findCnt(int arr[],int required_sum, int n)
+    {
+		
+		int DP[][] = new int[n+1][required_sum+1];
+		
+		for(int i=0;i<=required_sum;i++)
+		{
+			DP[0][i]=0;
+		}
+		
+		for(int i=0;i<=n;i++)
+		{
+			DP[i][0]=1;
+		}
+		
+		for(int i=1;i<=n;i++)
+		{
+			for(int j=1;j<=required_sum;j++)
+			{
+				if(arr[i-1]<=j)
+					DP[i][j]=DP[i-1][j]+DP[i-1][j-arr[i-1]];
+				else
+					DP[i][j]=DP[i-1][j];
+			}
+		}
+		return DP[n][required_sum];
+    }
+	public static void main(String[] args) 
+	{
+		int arr[] = {2,3,5,6,8,10};
+		int X = 10;
+		int n = arr.length;
+		System.out.println(findCnt(arr,X,n));
+	}
+}
