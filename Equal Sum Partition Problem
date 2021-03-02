@@ -1,0 +1,51 @@
+//Equal Sum Partition Problem
+import java.util.*;
+public class DynamicProgramming 
+{
+	public static boolean Subsetsum(int set[],int sum)
+	{
+		boolean ans_matrix[][] = new boolean[set.length+1][sum+1];
+		for (int i = 0; i <=sum; i++)
+            ans_matrix[0][i] = false;
+ 
+        for (int i = 0; i <= set.length; i++)
+            ans_matrix[i][0] = true;
+        
+		for(int i=1;i<=set.length;i++)
+		{
+			for(int j=1;j<=sum;j++)
+			{
+				if(set[i-1]<=j)
+				{
+					ans_matrix[i][j]=ans_matrix[i][j-set[i-1]] || ans_matrix[i-1][j];
+				}
+				else 
+				{
+					ans_matrix[i][j]=ans_matrix[i-1][j];
+				}
+			}
+		}
+		return ans_matrix[set.length][sum];
+	}
+	static boolean findPartition(int arr[], int n)
+    {
+		int sum =0;
+		for(int i=0;i<n;i++)
+		{
+			sum=sum+arr[i];
+		}
+		if(sum%2!=0)
+			return false;
+		else
+			return Subsetsum(arr,sum/2);
+    }
+	public static void main(String[] args) 
+	{
+		 int arr[] = { 3, 1, 1, 2, 2, 1 };
+	        int n = arr.length;
+	        if (findPartition(arr, n) == true)
+	            System.out.println("Can be divided into two subsets of equal sum");
+	        else
+	            System.out.println("Can not be divided into two subsets of equal sum");
+	}
+}
