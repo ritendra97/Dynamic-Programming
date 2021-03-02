@@ -42,7 +42,7 @@ public class DynamicProgramming
 			{
 				if(set[i-1]<=j)
 				{
-					ans_matrix[i][j]=ans_matrix[i][j-set[i-1]] || ans_matrix[i-1][j];
+					ans_matrix[i][j]=ans_matrix[i-1][j-set[i-1]] || ans_matrix[i-1][j];
 				}
 				else 
 				{
