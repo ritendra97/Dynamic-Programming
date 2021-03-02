@@ -1,0 +1,61 @@
+//Subset Sum Problem 
+// here we have both solution bruteforce and DP
+import java.util.*;
+public class DynamicProgramming 
+{
+	/*
+	public static boolean Subsetsum(int set[],int sum)
+	{
+		for(int i =0;i<set.length;i++)
+		{
+			for(int j=0;j<set.length;j++)
+			{
+				if(j!=i)
+				{
+					if(set[i]+set[j]==sum)
+						return true;
+				}
+			}
+		}
+		return false;
+	}*/
+	public static boolean Subsetsum(int set[],int sum)
+	{
+		boolean ans_matrix[][] = new boolean[set.length+1][sum+1];
+		for(int i=0;i<=set.length;i++)
+		{
+			for(int j=0;j<=sum;j++)
+			{
+				if(i==0)
+				{
+					ans_matrix[i][j]=false;
+				}
+				else if(j==0)
+				{
+					ans_matrix[i][j]=true;
+				}
+			}
+		}
+		for(int i=1;i<=set.length;i++)
+		{
+			for(int j=1;j<=sum;j++)
+			{
+				if(set[i-1]<=j)
+				{
+					ans_matrix[i][j]=ans_matrix[i][j-set[i-1]] || ans_matrix[i-1][j];
+				}
+				else 
+				{
+					ans_matrix[i][j]=ans_matrix[i-1][j];
+				}
+			}
+		}
+		return ans_matrix[set.length][sum];
+	}
+	public static void main(String[] args) 
+	{
+		int set[] = {2, 3, 7, 8, 10};
+		int sum = 11;
+		System.out.println(Subsetsum(set,sum));
+	}
+}
