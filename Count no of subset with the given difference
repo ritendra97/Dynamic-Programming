@@ -1,0 +1,54 @@
+//Count no of subset with the given difference
+import java.util.*;
+//logic of the problem
+//subset1 can be possible 
+//subset1+subset2==array
+//subset1-subset2==given difference;
+//subset1 = arraysum+diff/2;
+public class DynamicProgramming 
+{
+	//first we will check the possible 1st subset
+	static int findCnt(int arr[],int required_sum, int n)
+    {
+		
+		int DP[][] = new int[n+1][required_sum+1];
+		
+		for(int i=0;i<=required_sum;i++)
+		{
+			DP[0][i]=0;
+		}
+		
+		for(int i=0;i<=n;i++)
+		{
+			DP[i][0]=1;
+		}
+		
+		for(int i=1;i<=n;i++)
+		{
+			for(int j=1;j<=required_sum;j++)
+			{
+				if(arr[i-1]<=j)
+					DP[i][j]=DP[i-1][j]+DP[i-1][j-arr[i-1]];
+				else
+					DP[i][j]=DP[i-1][j];
+			}
+		}
+		return DP[n][required_sum];
+    }
+	public static int countsubsetgivendiff(int arr[],int k)
+	{
+		int sum=0;
+		for(int i=0;i<arr.length;i++)
+		{
+			sum+=arr[i];
+		}
+		int targetsum = (sum+k)/2;
+		return findCnt(arr,targetsum, arr.length);
+	}
+	public static void main(String[] args) 
+	{
+		int arr[] = {1, 5, 4, 1, 2};
+		int k=0;
+		System.out.println(findCnt(arr,13,5));
+	}
+}
