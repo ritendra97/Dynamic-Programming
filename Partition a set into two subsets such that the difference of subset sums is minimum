@@ -1,0 +1,56 @@
+//Partition a set into two subsets such that the difference of subset sums is minimum
+import java.util.*;
+// this cod lie if range is inbetween 10
+public class DynamicProgramming 
+{
+	public static int subset_sum(int arr[])
+	{
+		int sum=0;
+		for(int i=0;i<arr.length;i++)
+		{
+			sum+=arr[i];
+		}
+		boolean DP[][] = new boolean[arr.length+1][sum+1];
+		for(int i=0;i<=sum;i++)
+		{
+			DP[0][i]=false;
+		}
+		
+		for(int i=0;i<=arr.length;i++)
+		{
+			DP[i][0]=true;
+		}
+		
+		for(int i= 1;i<=arr.length;i++)
+		{
+			for(int j= 1;j<=sum;j++)
+			{
+				if(arr[i-1]<=j)
+				{
+					DP[i][j]=DP[i-1][j-arr[i-1]] || DP[i-1][j];
+				}
+				else
+				{
+					DP[i][j]=DP[i-1][j];
+				}
+			}
+		}
+		int diff=0;
+		for(int i=sum/2;i>=0;i--)
+		{
+			if(DP[arr.length][i]==true)
+			{
+				diff=sum-2*i;
+				break;
+			}
+			
+		}
+		
+		return diff;
+	}
+    public static void main(String[] args)
+    {
+	   int set[] = {3, 1, 4, 2, 2, 1};
+	   System.out.println(subset_sum(set));
+    }
+}
