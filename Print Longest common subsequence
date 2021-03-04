@@ -1,0 +1,65 @@
+//Print Longest common subsequence
+import java.util.*;
+public class DynamicProgramming 
+{
+	public static void lcsUtil( char[] X, char[] Y, int m, int n,int DP[][]) 
+	{
+		for(int i=0;i<=m;i++)
+		{
+			for(int j=0;j<=n;j++)
+			{
+				if(i==0 || j==0)
+					DP[i][j]=0;
+				else if(X[i-1]==Y[j-1])
+					DP[i][j]=DP[i-1][j-1]+1;
+				else
+					DP[i][j]=Math.max(DP[i-1][j], DP[i][j-1]);
+			}
+		}
+	}
+	public static String print_lcs( char[] X, char[] Y, int m, int n,int DP[][])
+	{
+		int i=m;
+		int j=n;
+		StringBuilder ans = new StringBuilder();
+		while(i>0 && j>0)
+		{
+			if(X[i-1]==Y[j-1])
+			{
+				ans.append(Y[j-1]);
+				i--;
+				j--;
+			}
+			else
+			{
+				if(DP[i-1][j]<=DP[i][j-1])
+					j--;
+				else
+					i--;
+			}
+		}
+		ans.reverse();
+		return ans.toString();
+	}
+	public static String lcs( char[] X, char[] Y, int m, int n) 
+	{
+		int DP[][] = new int[m+1][n+1];
+		
+		lcsUtil(X,Y,m,n,DP);
+		
+		return print_lcs(X, Y,m,n,DP);
+	}
+	public static void main(String[] args)
+	{
+		String s1 = "AGGTAB"; 
+	    String s2 = "GXTXAYB"; 
+	  
+	    char[] X=s1.toCharArray(); 
+	    char[] Y=s2.toCharArray();
+	    
+	    int m = X.length; 
+	    int n = Y.length;
+	    
+	    System.out.println(lcs(X,Y,m,n));
+	}
+}
