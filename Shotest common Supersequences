@@ -1,0 +1,81 @@
+//Shotest common Supersequences
+import java.util.*;
+public class DynaminProgramming 
+{
+	public static void lcsUtil(String X, String Y, int m, int n,int DP[][]) 
+	{
+		for(int i=0;i<=m;i++)
+		{
+			for(int j=0;j<=n;j++)
+			{
+				if(i==0 || j==0)
+					DP[i][j]=0;
+				else if(X.charAt(i-1)==Y.charAt(j-1))
+					DP[i][j]=DP[i-1][j-1]+1;
+				else
+					DP[i][j]=Math.max(DP[i-1][j], DP[i][j-1]);
+			}
+		}
+	}
+	public static String print_lcs(String X, String Y, int m, int n,int DP[][])
+	{
+		int i=m;
+		int j=n;
+		String final_ans="";
+		StringBuilder ans = new StringBuilder();
+		while(i>0 && j>0)
+		{
+			if(X.charAt(i-1)==Y.charAt(j-1))
+			{
+				ans.append(Y.charAt(j-1));
+				i--;
+				j--;
+			}
+			else
+			{
+				if(DP[i-1][j]<=DP[i][j-1])
+					j--;
+				else
+					i--;
+			}
+		}
+		ans.reverse();
+		
+		int p1=0;
+		int p2=0;
+		
+		for(int p=0;p<ans.length();p++)
+		{
+			char c = ans.charAt(p);
+			while(X.charAt(p1)!=c)
+			{
+				final_ans+=X.charAt(p1);
+				p1++;
+			}
+			while(Y.charAt(p2)!=c)
+			{
+				final_ans+=Y.charAt(p2);
+				p2++;
+			}
+		    final_ans+=c;
+		    p1++;
+		    p2++;
+		}
+		
+		return final_ans;
+	}
+	public static void main(String[] args)
+	{
+		String X = "AGGTAB";
+        String Y = "GXTXAYB";
+        
+        int m = X.length(); 
+	    int n = Y.length();
+	    
+	    int DP[][] = new int[m+1][n+1];
+	    
+	    lcsUtil(X,Y,m,n,DP);
+	    
+        System.out.println(print_lcs(X,Y,m,n,DP));
+	}
+}
