@@ -1,0 +1,98 @@
+//Longest Common Substring
+// recursion +memoziation
+
+import java.util.*;
+public class DynaminProgramming 
+{   
+	// only using recursion
+	
+	static int result=0;
+	/*
+	public static int lcs(char X[],char Y[],int m,int n,int count)
+	{
+		if(m==0|| n==0)
+			return count;
+		if(X[m-1]==Y[n-1])
+		{
+			count=lcs(X,Y,m-1,n-1,count+1);
+			result = Math.max(result, count);
+		}
+		count =Math.max(lcs(X,Y,m-1,n,0),lcs(X,Y,m,n-1,0));
+		return count;
+	}*/
+	// resursion +memoization
+	public static int lcs(char X[],char Y[],int m,int n,int count,HashMap<String, Integer> hm)
+	{
+		if(m==0|| n==0)
+			return count;
+		
+		String key = m + "code" + n +"bix" + count;
+		if(hm.containsKey(key))
+			return hm.get(key);
+		if(X[m-1]==Y[n-1])
+		{
+			count=lcs(X,Y,m-1,n-1,count+1,hm);
+			result = Math.max(result, count);
+		}
+		count =Math.max(lcs(X,Y,m-1,n,0,hm),lcs(X,Y,m,n-1,0,hm));
+		
+		hm.put(key,result);
+		return count;
+	}
+	public static void main(String[] args) 
+	{
+
+		String X = "abcdxyz";
+	    String Y = "xyzabcd";
+       
+        int m = X.length();
+        int n = Y.length();
+        
+        HashMap<String, Integer> hm = new HashMap<>();
+        
+        lcs(X.toCharArray(),Y.toCharArray(), m,n,0,hm);
+        System.out.println(result);
+	}
+}
+
+
+
+// Dynamic programming soution 
+import java.util.*;
+public class DynaminProgramming 
+{   // with recursion
+	public static int lcs( char[] X, char[] Y, int m, int n ) 
+	{
+         int DP[][] = new int[m+1][n+1];
+		int result= Integer.MIN_VALUE;
+		 for(int i=0;i<=m;i++)
+	     {
+		    for(int j=0;j<=n;j++)
+			{
+				if(i==0 || j==0)
+					DP[i][j]=0;
+				else if(X[i-1]==Y[j-1])
+				{
+					DP[i][j]=DP[i-1][j-1]+1;
+					result = Math.max(result, DP[i][j]);
+				}
+				else
+					DP[i][j]=0;
+			}
+	     }
+		  return result;
+	}
+	
+	public static void main(String[] args) 
+	{
+
+		String X = "abcdxyz";
+	    String Y = "xyzabcd";
+       
+        int m = X.length();
+        int n = Y.length();
+        
+        System.out.println(lcs(X.toCharArray(),Y.toCharArray(), m,n));
+	}
+}
+
