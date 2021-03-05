@@ -1,0 +1,42 @@
+//Given two strings, find if first string is a subsequence of second
+import java.util.*;
+public class Dynamicprogramming 
+{
+	public static int lcs(String X, String Y, int m, int n) 
+	{
+		int DP[][] = new int[m+1][n+1];
+		
+		for(int i=0;i<=m;i++)
+		{
+			for(int j=0;j<=n;j++)
+			{
+				if(i==0 || j==0)
+					DP[i][j]=0;
+				else if(X.charAt(i-1)==Y.charAt(j-1))
+					DP[i][j]=DP[i-1][j-1]+1;
+				else
+					DP[i][j]=Math.max(DP[i-1][j], DP[i][j-1]);
+			}
+		}
+		
+		return DP[m][n];
+	}
+	static boolean isSubSequence(String str1, String str2,int m, int n)
+    {
+		int compaire = lcs(str1,str2,m,n);
+		if(compaire==m)
+			return true;
+		else 
+			return false;
+    }
+	public static void main(String[] args) 
+	{
+		String str1 = "AXY";
+		String str2 = "ADXCPY";
+		
+		int m = str1.length();
+		int n = str2.length();
+		
+		System.out.println(isSubSequence(str1,str2,m,n));
+	}
+}
