@@ -1,0 +1,49 @@
+//Minimum number of deletions to make a string palindrome
+import java.util.*;
+public class DynamicProgramming 
+{
+	public static int lcs(String X, String Y,int m,int n)
+	{
+		int DP[][] = new int[m+1][n+1];
+		
+		for(int i=0;i<=m;i++)
+		{
+			for(int j=0;j<=n;j++)
+			{
+				if(i==0 || j==0)
+				{
+					DP[i][j]=0;
+				}
+				else if(X.charAt(i-1)==Y.charAt(j-1))
+				{
+					DP[i][j]=1+DP[i-1][j-1];
+				}
+				else
+				{
+					DP[i][j] = Math.max(DP[i-1][j], DP[i][j-1]);
+				}
+					
+			}
+		}
+		return DP[m][n];
+	}
+	public static int minimumNumberOfDeletions(String str)
+	{
+		StringBuilder str_reverse = new StringBuilder(str);
+		
+		str_reverse.reverse();
+		
+		int m=str.length();
+		int n=str_reverse.toString().length();
+		
+		int required = lcs(str,str_reverse.toString(),m,n);
+		
+		return m-required;
+	}
+	public static void main(String[] args) 
+	{
+		String str = "geeksforgeeks";
+        System.out.println("Minimum number " + "of deletions = "+ 
+        minimumNumberOfDeletions(str));
+	}
+}
