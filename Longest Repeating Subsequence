@@ -1,0 +1,36 @@
+//Longest Repeating Subsequence
+import java.util.*;
+public class DynamicProgramming 
+{
+	public static int lcs(String X, String Y, int m, int n) 
+	{
+		int DP[][] = new int[m+1][n+1];
+		
+		for(int i=0;i<=m;i++)
+		{
+			for(int j=0;j<=n;j++)
+			{
+				if(i==0 || j==0)
+					DP[i][j]=0;
+				else if(X.charAt(i-1)==Y.charAt(j-1) && i!=j)
+					DP[i][j]=DP[i-1][j-1]+1;
+				else
+					DP[i][j]=Math.max(DP[i-1][j], DP[i][j-1]);
+			}
+		}
+		
+		return DP[m][n];
+	}
+	public static int findLongestRepeatingSubSeq(String str)
+	{
+		int m=str.length();
+		int n=str.length();
+		
+		return lcs(str, str, m, n);
+	}
+	public static void main(String[] args) 
+	{
+		 String str = "aabb";
+	     System.out.println("The length of the largest subsequence that"+" repeats itself is : "+findLongestRepeatingSubSeq(str));
+	}
+}
