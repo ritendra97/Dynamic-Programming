@@ -1,0 +1,63 @@
+//Unbounded KnapSack
+import java.util.*;
+public class DynamicProgramming 
+{
+	public static int[] maxweightarray(int weight[],int value[],int cp,int n)
+	{
+		int DP[] = new int[cp+1];
+		DP[0]=0;
+		
+		for(int bagcp=1;bagcp<=cp;bagcp++)
+		{
+			int max=0;
+			for(int i=0;i<n;i++)
+			{
+				if(weight[i]<=bagcp)
+				{
+					int rbagcp = bagcp-weight[i];
+					int rbagcpv = DP[rbagcp];
+					int tbagcpv = value[i]+rbagcpv;
+					if(max<tbagcpv)
+						max=tbagcpv;
+				}
+			}
+			DP[bagcp]=max;
+		}
+		return DP;
+	}
+	public static void main(String[] args)
+	{	
+        Scanner sc = new Scanner(System.in);
+		
+		System.out.println("Please provide necessary details");
+		
+		int n = sc.nextInt();
+		
+		int value[] = new int[n];
+		
+		System.out.println("Enter value:");
+		for(int i=0;i<n;i++)
+		{
+			value[i]= sc.nextInt();
+		}
+		
+		System.out.println("Enter weights:");
+		
+        int weight[] = new int[n];
+		
+		for(int i=0;i<n;i++)
+		{
+			weight[i]= sc.nextInt();
+		}
+		
+		System.out.println("Enter Bag Capacity:");
+		int cp = sc.nextInt();
+		
+		int ans[] = maxweightarray(weight,value,cp,n);
+		
+		for(int p :ans)
+		{
+			System.out.print(p+" ");
+		}
+	}
+}
