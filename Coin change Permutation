@@ -1,0 +1,31 @@
+//Coin change Permutation 
+import java.util.*;
+public class DynamicProgramming 
+{
+	public static int coinchangepermutation(int coins[],int amount)
+	{
+		int DP[] = new int[amount+1];
+		
+		DP[0]=1;
+		for(int amt=1;amt<DP.length;amt++)
+		{
+			for(int j=0;j<coins.length;j++)
+			{
+				if(coins[j]<=amt)
+				{
+					// here suppose amt is 7 than 7-coins[0]==2 so ramout = 7-2 and so on than 3 and than 5.......
+					int ramount = amt-coins[j];
+					DP[amt]+=DP[ramount];
+				}
+			}
+		}
+		return DP[amount];
+	}
+	public static void main(String[] args) 
+	{
+		int coins[]= {2,3,5};
+		
+		int amount = 7;
+		System.out.println(coinchangepermutation(coins,7));
+	}
+}
