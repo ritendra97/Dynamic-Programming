@@ -1,0 +1,25 @@
+//Coin change combination
+import java.util.*;
+public class DynamicProgramming 
+{
+	public static int coincombination(int coin[],int pay)
+	{
+		int DP[] = new int[pay+1];
+		
+		DP[0]=1;
+		for(int i=0;i<coin.length;i++)
+		{
+			for(int j=coin[i];j<DP.length;j++)
+			{
+				DP[j]+=DP[j-coin[i]];
+			}
+		}
+		return DP[pay];
+	}
+	public static void main(String[] args) 
+	{
+		int coin[] = {2,3,5};
+		
+		System.out.println(coincombination(coin,7));
+	}
+}
