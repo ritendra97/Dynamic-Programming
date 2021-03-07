@@ -1,0 +1,77 @@
+//Palindrome Partitioning
+import java.util.*;
+public class DynammingProgramming 
+{
+	public static boolean isPalindrome(String str,int i, int j)
+	{
+		while(i<j)
+		{
+			if(str.charAt(i)!=str.charAt(j))
+				return false;
+			else
+			{
+				i++;
+				j--;
+			}
+		}
+		return true;
+	}
+	/*
+	static int minPalPartion(String str, int i, int j)
+	{
+		if(i>=j)
+			return 0;
+		
+		int min = Integer.MAX_VALUE;
+		
+		if(isPalindrome(str,i,j))
+			return 0;
+		for(int k=i;k<=j-1;k++)
+		{
+			int temp = minPalPartion(str, i, k)+minPalPartion(str,k+1,j)+1;
+			
+			if(temp<min)
+				min=temp;
+		}
+		return min;
+	}*/
+	// recursion+memoziation
+	public static int minPalPartion(String str, int i, int j,int matrix[][])
+	{
+		if(i>=j)
+			return 0;
+		
+		int min = Integer.MAX_VALUE;
+		
+		if(isPalindrome(str,i,j))
+			return 0;
+		
+		if(matrix[i][j]!=-1)
+			return matrix[i][j];
+		
+		for(int k=i;k<=j-1;k++)
+		{	
+			int temp=minPalPartion(str, i, k,matrix)+minPalPartion(str, k+1, j,matrix)+1;
+			if(temp<min)
+				min=temp;
+		}
+		matrix[i][j] = min;
+		return matrix[i][j];
+	}
+	public static void main(String[] args) 
+	{
+		 String str = "ababbbabbababa";
+		 
+		 int matrix[][]= new int[str.length()][str.length()];
+		 
+		 for(int i=0;i<str.length();i++)
+		 {
+			 for(int j=0;j<str.length();j++)
+			 {
+				 matrix[i][j]=-1;
+			 }
+		 }
+		 
+		 System.out.println("Min cuts needed for "+ "Palindrome Partitioning is " + minPalPartion(str, 0, str.length() - 1,matrix));
+	}
+}
