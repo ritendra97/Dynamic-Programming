@@ -1,0 +1,38 @@
+//Minimum cost to reach the top of the floor by climbing stairs
+
+import java.util.*;
+import java.util.*;
+public class BinarySearch 
+{
+	 public static  int minCostClimbingStairs(int[] cost) 
+	 {      
+	     int n = cost.length;
+	     Integer DP[]= new Integer[n+1];
+	     DP[n]=0;
+	     for(int i=n-1;i>=0;i--)
+	     {
+	         if(cost[i]>0)
+	         {
+	             int min = Integer.MAX_VALUE;
+	             for(int j=1;j<=cost[i] && (i+j)<DP.length;j++)
+	             {
+	                 if(DP[i+j]!=null)
+	                 {
+	                     min = Math.min(min,DP[i+j]);
+	                 }
+	             }
+	             if(min!=Integer.MAX_VALUE)
+	             {
+	                 DP[i]=min+1;
+	             }
+	         }
+	      }
+	      return DP[0];
+	 }	
+	 public static void main(String[] args) 
+	 {
+		  int[] cost = {16, 19, 10, 12, 18}; 
+	 	
+          System.out.println(minCostClimbingStairs(cost));
+	}
+}
