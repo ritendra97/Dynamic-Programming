@@ -1,0 +1,56 @@
+import java.util.Arrays;
+
+public class DynamicProgramming 
+{
+	public static boolean isScramble(String a,String b)
+	{
+		if(a.equals(b)==true)
+			return true;
+		
+		if(a.length()!=b.length())
+			return false;
+		
+		// Check Anagram
+		
+		char[] stringa = a.toCharArray();
+		char[] stringb = b.toCharArray();
+		
+		Arrays.sort(stringa);
+		
+		Arrays.sort(stringb);
+		
+		if(!String.copyValueOf(stringa).equals(String.copyValueOf(stringb)))
+			return false;
+		
+		int n = a.length();
+		
+		for(int i=1;i<n;i++)
+		{
+			// gr|eat eat|gr
+			if(isScramble(a.substring(0,i),b.substring(n-i,n)) && isScramble(a.substring(0,n-i),b.substring(i,n)))
+			{
+				 return true;
+			}
+			// gr|eat gr|ate
+			if(isScramble(a.substring(0,i),b.substring(0,i)) && isScramble(a.substring(i,n),b.substring(i,n)))
+			{
+				return true;
+			}
+		}
+		return false;
+	}
+	public static void main(String[] args)
+	{
+		String S1 = "coder";
+	    String S2 = "ocred";
+	     
+	    if (isScramble(S1, S2)) 
+	    {
+	        System.out.println("Yes");
+	    }
+	    else
+	    {
+	        System.out.println("No");
+	    }
+	}
+}
