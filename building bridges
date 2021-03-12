@@ -1,0 +1,65 @@
+import java.util.*;
+
+class cityPairs implements Comparable<cityPairs>
+{
+	int north,south;
+	
+	cityPairs(int n,int f)
+	{
+		this.north=n;
+    	this.south=f;
+	};
+	public int compareTo(cityPairs p)
+	{
+		if(p.north!=this.north)
+		    return p.north-this.north;
+		else
+			return p.south-this.south;
+	}
+	
+}
+public class DynamicProgramming 
+{
+	public static int maxBridges(cityPairs[] bdgs,int n) 
+	{ 
+		Arrays.sort(bdgs);
+		int LIS[] = new int[n];
+		Arrays.fill(LIS, 1);
+		int len = 0;
+		for(int k=0;k<n;k++)
+		{
+			int i=0;
+			int j=len;
+			cityPairs pa = bdgs[k];
+			int city = pa.south;
+			while(i<j)
+			{
+				int mid= (i+j)/2;
+				if(LIS[mid]<city)
+					i=mid+1;
+				else
+					j=mid;
+			}
+			LIS[i] = bdgs[k].south;
+			if(i==len)
+				len++;
+		}
+		return len;
+	} 
+	public static void main(String[] args) 
+	{
+        Scanner scn = new Scanner(System.in);
+		
+		System.out.println(" Enter the no bridges: ");
+		int n = Integer.parseInt(scn.nextLine());
+        cityPairs bdgs[] = new cityPairs[n];  
+        for(int i=0;i<n;i++)
+		{
+			int nr = scn.nextInt();
+			int st = scn.nextInt();
+			bdgs[i] = new cityPairs(nr,st);
+		}
+        
+        System.out.println(maxBridges(bdgs,n));
+	}
+}
