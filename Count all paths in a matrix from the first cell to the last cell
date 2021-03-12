@@ -1,0 +1,27 @@
+//Count all paths in a matrix from the first cell to the last cell
+import java.util.*;
+public class DynamicProgramming 
+{
+	static int M=3;
+	static int N=3;
+	public static int countPath()
+	{
+		int DP[][] = new int[M][N];
+		for(int i=0;i<M;i++)
+		{
+			for(int j=0;j<N;j++)
+			{
+				if(i==0 || j==0)
+					DP[i][j]=1;
+				else
+					DP[i][j]=DP[i-1][j]+DP[i][j-1];
+			}
+		}
+		return DP[M-1][N-1];
+	}
+	public static void main(String[] args) 
+	{
+		System.out.println(countPath());
+	}
+
+}
