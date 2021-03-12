@@ -1,0 +1,74 @@
+//Russion Doll Enevelops
+import java.util.*;
+public class DynamicProgramming 
+{
+	static class pair implements Comparable<pair>
+    {
+        int w;
+        int h;
+        pair(int w,int h)
+        {
+            this.w=w;
+            this.h=h;
+        }
+        pair()
+        {};
+        public int compareTo(pair p)
+        {
+            if(this.w!=p.w)
+                return this.w-p.w;
+            else
+                return this.h-p.h;
+        }
+    }
+    public static int maxEnvelopes(int[][] envelopes) 
+    {    
+        int n = envelopes.length;
+        if(n<0)
+            return 0;
+        int lis[] = new int[n];
+        
+        pair P[] = new pair[n];
+        for(int i=0;i<n;i++)
+        {
+            P[i]=new pair(envelopes[i][0],envelopes[i][1]);
+        }
+        
+        Arrays.sort(P);
+        
+        int len=0;
+        
+        for(int k=0;k<n;k++)
+        {
+            int i=0;
+            int j=len;
+            
+            pair pa = P[k];
+            
+            int check = pa.h;
+            while(i<j)
+            {
+                int mid = i+(j-i)/2;
+                
+                if(lis[mid]<check)
+                    i=mid+1;
+                else
+                    j=mid;
+            }
+            lis[i]=check;
+            if(i==len)
+                len++;
+        }
+        return len;
+    }
+	public static void main(String[] args)
+	{
+       int arr[][]= {{5,4},
+    		         {6,4},
+    		         {6,7},
+    		         {2,3}};
+       
+       System.out.print(maxEnvelopes(arr));
+	}
+
+}
