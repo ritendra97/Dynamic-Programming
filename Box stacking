@@ -1,0 +1,66 @@
+import java.util.*;
+class Box
+{
+	int l;
+	int w;
+	int h;
+	Box(int l,int w,int h)
+	{
+		this.l=l;
+		this.w=w;
+		this.h=h;
+	}
+}
+public class DynamicProgramming 
+{
+	public static ArrayList<Box> createAllRotations(List<Box> boxes)
+    {
+		ArrayList<Box> rotation  = new ArrayList<>();
+		
+		for(Box box : boxes)
+		{
+			rotation.add(box);
+			
+			rotation.add(new Box(Math.max(box.l, box.h),Math.min(box.l,box.h),box.w));
+			
+			rotation.add(new Box(Math.max(box.w, box.h),Math.min(box.w,box.h),box.l));
+		}
+		return rotation;
+    }
+	public static int findMaxHeight(List<Box> boxes)
+	{
+		ArrayList<Box> rotation = createAllRotations(boxes);
+		
+		int max_height[] = new int[rotation.size()];
+		
+		// sort the boxes in descending order of base area
+		Collections.sort(rotation,(x,y)->(y.l*y.w-x.l*x.w));
+		
+		for (int i = 0; i < rotation.size(); i++)
+        {
+            for (int j = 0; j < i; j++)
+            {
+                // dimensions of the lower box are each strictly larger than those
+                // of the higher box
+                if (rotation.get(i).l < rotation.get(j).l &&
+                            rotation.get(i).w < rotation.get(j).w) {
+                    max_height[i] = Math.max(max_height[i], max_height[j]);
+                }
+            }
+ 
+            max_height[i] += rotation.get(i).h;
+        }
+		return Arrays.stream(max_height).max().getAsInt();
+	}
+	public static void main(String[] args)
+	{
+		ArrayList<Box> boxes = new ArrayList<Box>();
+		
+		boxes.add(new Box(4,2,5));
+		boxes.add(new Box(3,1,6));
+		boxes.add(new Box(3,2,1));
+		boxes.add(new Box(6,3,8));
+		
+		System.out.println(findMaxHeight(boxes));
+	}
+}
