@@ -1,0 +1,32 @@
+//Minimum number of increasing subsequences
+import java.util.*;
+public class DynamicProgramming 
+{
+	public static int longestDecrasingSubsequence(int arr[],int n)
+	{
+		int len=0;
+		for(int k=0;k<n;k++)
+		{
+			int i=0;
+			int j=len;
+			while(i<j)
+			{
+				int mid = (i+j)/2;
+				if(arr[mid]>arr[k])
+					i=mid+1;
+				else
+					j=mid;
+			}
+			arr[i]=arr[k];
+			if(i==len)
+				len++;
+		}
+		return len;
+	}
+	public static void main(String[] args) 
+	{
+		int n = 5;
+        int a[] = { 8, 4, 1, 2, 9 };
+        System.out.print(longestDecrasingSubsequence(a, n));
+	}
+}
