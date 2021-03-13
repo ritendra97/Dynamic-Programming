@@ -29,6 +29,7 @@ public class DynamicProgramming
     }
 	public static int findMaxHeight(List<Box> boxes)
 	{
+		int max=Integer.MIN_VALUE;
 		ArrayList<Box> rotation = createAllRotations(boxes);
 		
 		int max_height[] = new int[rotation.size()];
@@ -49,8 +50,10 @@ public class DynamicProgramming
             }
  
             max_height[i] += rotation.get(i).h;
+            if(max<max_height[i])
+            	max=max_height[i];
         }
-		return Arrays.stream(max_height).max().getAsInt();
+		return max;
 	}
 	public static void main(String[] args)
 	{
