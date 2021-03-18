@@ -1,0 +1,24 @@
+//Count no of ways to reach to given score in a score
+import java.util.*;
+public class DynamicProgramming 
+{
+	static int count(int score[],int n) 
+	{ 	 
+		int DP[] = new int[n+1];
+		DP[0]=1;
+		for(int i=0;i<score.length;i++)
+		{
+			for(int j=score[i];j<DP.length;j++)
+			{
+				DP[j]+=DP[j-score[i]];
+			}
+		}
+		return DP[n];
+	}
+	public static void main(String[] args) 
+	{
+		int score[] = {3,5,10};
+		int n=20;
+		System.out.println(count(score,n));
+	}
+}
