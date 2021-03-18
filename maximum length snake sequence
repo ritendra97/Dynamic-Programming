@@ -1,0 +1,97 @@
+maximum length snake sequence
+import java.util.*;
+class pair
+{
+	int first;
+	int second;
+	pair(int first,int second)
+	{
+		this.first=first;
+		this.second=second;
+	}
+}
+public class Dynamicprogrammig 
+{
+	public static ArrayList<pair> findPath(int grid[][],int L[][],int i,int j)
+	{
+		ArrayList<pair> path = new ArrayList<pair>();
+		pair pr = new pair(i,j);
+		path.add(0,pr);
+		while(grid[i][j]!=0)
+		{
+			if(i>0 && grid[i][j]-1==grid[i-1][j])
+			{
+				pr = new pair(i-1,j);
+				path.add(0,pr);
+				i--;
+			}
+			if(j>0 && grid[i][j]-1==grid[i][j-1])
+			{
+				pr = new pair(i,j-1);
+				path.add(0,pr);
+				j--;
+			}
+		}
+		return path;
+	}
+	public static void findMaxLengthSnakeSequence(int[][] grid)
+    {
+		int L[][] = new int[grid.length][grid.length];
+		int max_row=0;
+		int max_col=0;
+		int max =0;
+		
+		for(int i=0;i<grid.length;i++)
+		{
+			for(int j=0;j<grid[0].length;j++)
+			{
+				if(i!=0 || j!=0)
+				{
+					if(i>0)
+					{
+						if(Math.abs(grid[i][j]-grid[i-1][j])==1)
+						{
+							L[i][j]= Math.max(L[i][j], L[i-1][j])+1;
+						}
+						if(max<L[i][j])
+						{
+							max=L[i][j];
+							max_row=i;
+							max_col=j;
+						}
+					}
+					if(j>0)
+					{
+						if(Math.abs(grid[i][j]-grid[i][j-1])==1)
+						{
+							L[i][j]= Math.max(L[i][j], L[i][j-1])+1;
+						}
+						if(max<L[i][j])
+						{
+							max=L[i][j];
+							max_row=i;
+							max_col=j;
+						}
+					}
+				}
+			}
+		}
+		System.out.println("Max len is: "+max);
+		
+		ArrayList<pair> path = findPath(grid,L,max_row,max_col);
+		
+		for (pair it : path) 
+	        System.out.print("\n" + grid[it.first][it.second] + " (" +  
+	                                    it.first + ", " + it.second + ")");
+    }
+	public static void main(String[] args)
+	{
+		  int[][] grid ={ 
+			        {9, 6, 5, 2}, 
+			        {8, 7, 6, 5}, 
+			        {7, 3, 1, 6}, 
+			        {1, 1, 1, 7}, 
+			    };
+		  findMaxLengthSnakeSequence(grid);
+	}
+}
