@@ -1,0 +1,108 @@
+//Paint House - 2 (Many Colors)
+// below id O(N3) solution
+import java.util.*;
+public class DynamicProgramming 
+{
+	public int solve(int[][] A) 
+    {
+        int DP[][] = new int[A.length][A[0].length];
+        
+        
+        for(int i=0;i<A[0].length;i++)
+        {
+        	DP[0][i]=A[0][i];
+        }
+        
+        for(int i=0;i<A.length;i++)
+        {
+        	for(int j=0;j<A[0].length;j++) 
+        	{
+        		int min = Integer.MAX_VALUE;
+        		for(int k=0;k<A[0].length;k++)
+        		{
+        			if(k!=j)
+        			{
+        				if(min>DP[i-1][k])
+        					min=DP[i-1][k];
+        			}
+        		}
+        		DP[i][j]=A[i][j]+min;
+        	}
+        }
+        
+        int result = Integer.MAX_VALUE;
+        
+        for(int i=0;i<A[0].length;i++)
+        {
+        	if(result>DP[A.length-1][i])
+        		result=DP[A.length-1][i];
+        }
+        return result;
+    }
+	public static void main(String[] args)
+	{
+		
+	}
+}
+// Below is O(n2) Solution
+import java.util.*;
+public class DynamicProgramming 
+{
+	public int solve(int[][] A) 
+    {
+        int DP[][] = new int[A.length][A[0].length];
+        
+        int least = Integer.MAX_VALUE;
+        int sleast = Integer.MAX_VALUE;
+        for(int i=0;i<A[0].length;i++)
+        {
+        	DP[0][i]=A[0][i];
+        	if(A[0][i]<=least)
+        	{
+        		sleast=least;
+        		least=A[0][i];
+        	}
+        	else if(A[0][i]<=sleast)
+        	{
+        		sleast =A[0][i];
+        	}
+        }
+        
+        for(int i=0;i<A.length;i++)
+        {
+        	int nleast = Integer.MAX_VALUE;
+            int nsleast = Integer.MAX_VALUE;
+        	for(int j=0;j<A[0].length;j++) 
+        	{
+        		if(least==A[i][j])
+        			DP[i][j]=A[i][j]+sleast;
+        		else
+        			DP[i][j]=A[i][j]+least;
+        		if(DP[i][j]<=nleast)
+            	{
+            		nsleast=nleast;
+            		nleast=DP[i][j];
+            	}
+            	else if(DP[i][j]<=nsleast)
+            	{
+            		nsleast =DP[i][j];
+            	}
+        	}
+        	least = nleast;
+        	sleast = nsleast;
+        }
+        
+        int result = Integer.MAX_VALUE;
+        
+        for(int i=0;i<A[0].length;i++)
+        {
+        	if(result>DP[A.length-1][i])
+        		result=DP[A.length-1][i];
+        }
+        return result;
+    }
+	public static void main(String[] args)
+	{
+		
+	}
+}
