@@ -1,0 +1,25 @@
+//Count possible ways to construct buildings
+import java.util.*;
+public class DynamicProgramming 
+{
+	public static int construct_Building(int n)
+	{
+		int space = 1;
+		int building =1;
+		for(int i=2;i<=n;i++)
+		{
+			int newspace = space+building;
+			int newbuilding = space;
+			
+			building = newbuilding;
+			space=newspace;
+		}
+		int ans  = space+building;
+		return ans*ans;
+	}
+	public static void main(String[] args) 
+	{
+		System.out.println(construct_Building(3));
+	}
+
+}
