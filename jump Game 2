@@ -10,6 +10,8 @@ public class DynamicProgramming
 		{
 			nextjump = Math.max(nextjump, i+nums[i]);
 			
+			if(i>currjump)
+				return -1;
 			if(i==currjump)
 			{
 				jump++;
@@ -20,7 +22,7 @@ public class DynamicProgramming
     }
 	public static void main(String[] args) 
 	{
-		int nums[] = {2,3,1,1,4};
+		int nums[] = {2,3,0,1,4};
 		
 		System.out.println(jump(nums));
 	}
