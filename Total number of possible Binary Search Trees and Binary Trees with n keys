@@ -1,0 +1,52 @@
+//Total number of possible Binary Search Trees and Binary Trees with n keys
+import java.util.*;
+public class DynamicProgramming 
+{
+	// count of Binary Search Tree must be catalan no. and count of Binary tree must be n!*BST
+	
+	public static int countBST(int n)
+	{
+		int DP[] = new int[n+1];
+		
+		DP[0]=1;
+		DP[1]=1;
+		for(int i=2;i<DP.length;i++)
+		{
+			for(int j=0;j<i;j++)
+			{
+				DP[i] += DP[j]*DP[i-j-1]; 
+			}
+		}
+		return DP[n];
+	}
+	public static int factorial(int n)
+	{
+		int fact =1;
+		for(int i=n;i>0;i--)
+		{
+			fact = fact*i;
+		}
+		return fact;
+	}
+	// Count BT;
+	public static int countBT(int n)
+	{
+        int DP[] = new int[n+1];
+		
+		DP[0]=1;
+		DP[1]=1;
+		for(int i=2;i<DP.length;i++)
+		{
+			for(int j=0;j<i;j++)
+			{
+				DP[i] += DP[j]*DP[i-j-1]; 
+			}
+		}
+		return DP[n]*factorial(n);
+	}
+	public static void main(String[] args) 
+	{
+		int n=5;
+		System.out.println(countBST(n));
+	}
+}
