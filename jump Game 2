@@ -1,0 +1,27 @@
+import java.util.*;
+public class DynamicProgramming 
+{
+	public static int jump(int[] nums) 
+    {
+		int currjump=0;
+		int nextjump=0;
+		int jump=0;
+		for(int i=0;i<nums.length-1;i++)
+		{
+			nextjump = Math.max(nextjump, i+nums[i]);
+			
+			if(i==currjump)
+			{
+				jump++;
+				currjump=nextjump;
+			}
+		}
+		return jump;
+    }
+	public static void main(String[] args) 
+	{
+		int nums[] = {2,3,1,1,4};
+		
+		System.out.println(jump(nums));
+	}
+}
