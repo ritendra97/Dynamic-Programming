@@ -1,0 +1,38 @@
+//Minimum steps to minimize n as per the given condition 
+import java.util.*;
+public class DynamicProgramming 
+{
+	public static int getminstep(int n,int dp[])
+	{
+		if(n==1)
+			return 0;
+		
+		if(dp[n]!=-1)
+			return dp[n];
+		int op1= getminstep(n-1,dp);
+		int minstep = op1;
+		
+		if(n%2==0)
+		{
+			int op2 = getminstep(n/2,dp);
+			if(op2<minstep)
+				minstep=op2;
+		}
+		
+		if(n%3==0)
+		{
+			int op3 = getminstep(n/3,dp);
+			if(op3<minstep)
+				minstep=op3;
+		}
+		dp[n]= 1+minstep;
+		return 1+minstep;
+	}
+	public static void main(String [] args)
+	{
+		int n=10;
+		int dp[] = new int[n+1];
+		Arrays.fill(dp, -1);
+		System.out.println(getminstep(n,dp));
+	}
+}
