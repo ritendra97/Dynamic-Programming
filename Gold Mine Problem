@@ -1,0 +1,51 @@
+//Gold Mine Problem
+import java.util.*;
+public class DynamicProgramming 
+{
+	public static int getMaxGold(int gold[][], int m, int n)
+	{
+		int dp[][] = new int[m][n];
+		for(int i=m-1;i>=0;i--)
+		{
+			dp[i][n-1]=gold[i][n-1];
+		}
+		for(int i=m-2;i>=0;i--)
+		{
+			for(int j=0;j<n;j++)
+			{
+				if(j==0)
+				{
+					dp[j][i]=Math.max(dp[j][i+1], dp[j+1][i+1])+gold[j][i];
+				}
+				else if(j==n-1)
+				{
+					dp[j][i]=Math.max(dp[j][i+1], dp[j-1][i+1])+gold[j][i];
+				}
+				else
+				{
+					dp[j][i]=Math.max(dp[j][i+1], Math.max(dp[j-1][i+1],dp[j+1][i+1]))+gold[j][i];
+				}
+			}
+		}
+		int result=Integer.MIN_VALUE;
+		
+		for(int i=0;i<n;i++)
+		{
+			if(result<dp[i][0])
+				result=dp[i][0];
+		}
+		
+		return result;
+	}
+	public static void main(String[] args) 
+	{
+		int gold[][]= { {1, 3, 1, 5}, 
+                        {2, 2, 4, 1}, 
+                        {5, 0, 2, 3}, 
+                        {0, 6, 1, 2} }; 
+                  
+        int m = 4, n = 4; 
+  
+        System.out.print(getMaxGold(gold, m, n));
+	}
+}
