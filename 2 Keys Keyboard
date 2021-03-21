@@ -1,0 +1,23 @@
+//2 Keys Keyboard
+class Solution {
+    public int minSteps(int n) 
+    {
+        int DP[] = new int[n+1];
+		
+		for(int i=2;i<=n;i++)
+		{
+            DP[i]=i;//this is for prime fector becase prim ecan not break any other number
+            // and in below loop we can try to get it's max possible factor
+            // j>1 because j>1 is minimum factor.
+			for(int j=i/2;j>1;j--)
+			{
+                if(i%j==0)
+                {
+                    // Here DP[j] indicate that perticuler number minimum step to reach
+                    DP[i]= Math.min(DP[i],DP[j]+i/j);
+                }
+			}
+		}
+		return DP[n];
+    }
+}
