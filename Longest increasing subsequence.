@@ -18,7 +18,7 @@ public class Practice
 				if(lIS[mid]<arr[k])
 					i=mid+1;
 				else
-					i=mid;
+					j=mid;
 			}
 			lIS[i]=arr[k];
 			if(i==len)
