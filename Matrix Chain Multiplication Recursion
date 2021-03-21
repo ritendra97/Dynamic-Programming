@@ -1,0 +1,33 @@
+//Matrix Chain Multiplication Recursion
+import java.util.*;
+public class DynamicProgramming 
+{
+	public static int mcmrecursion(int arr[],int i,int j,int dp[][])
+	{
+		if(i==j)
+			return 0;
+		if(dp[i][j]!=-1)
+			return dp[i][j];
+		
+		int min = Integer.MAX_VALUE;
+		for(int k=i;k<j;k++)
+		{
+			int temp = mcmrecursion(arr,i,k,dp)+mcmrecursion(arr,k+1,j,dp)+arr[i-1]*arr[k]*arr[j];
+			if(min>temp)
+				min=temp;
+		}
+		
+		dp[i][j]=min;
+		
+	    return dp[i][j];
+	}
+	public static void main(String[] args) 
+	{
+        int arr[]= {3,1,5,8};
+		int dp[][] = new int [100][100];
+		for (int[] row : dp) 
+		      Arrays.fill(row, -1); 
+		System.out.println( mcmrecursion(arr,1,arr.length-1,dp));
+	}
+
+}
