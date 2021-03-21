@@ -25,7 +25,7 @@ public class DynamicProgramming
 						int mc = arr[i]*arr[k+1]*arr[j+1];
 						int tc = lc+rc+mc;
 						if(min>tc)
-							tc=min;
+							min=tc;
 					}
 					dp[i][j]=min;
 				}
