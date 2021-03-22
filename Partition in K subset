@@ -1,0 +1,40 @@
+import java.util.*;
+public class Recursion 
+{
+	public static long partitionKSubset(int n, int k)
+	{
+		long dp[][] = new long[k+1][n+1];
+		
+		if(n==0 ||k==0 || n<k)
+			return 0;
+		
+		for(int t=1;t<=k;t++)
+		{
+			for(int p=1;p<=n;p++)
+			{
+				if(t>p)
+				{
+					dp[t][p]=0;
+				}
+				else if(t==p)
+				{
+					dp[t][p]=1;
+				}
+				else
+				{
+					dp[t][p] = dp[t][p-1]*t+dp[t-1][p-1];
+				}
+			}
+		}
+		return dp[k][n];
+	}
+	public static void main(String[] args)
+	{
+		Scanner scn = new Scanner(System.in);
+		System.out.println("Input: ");
+		int n = scn.nextInt();
+		int k = scn.nextInt();
+		
+		System.out.println(partitionKSubset(n, k));
+	}
+}
