@@ -1,0 +1,106 @@
+//Length of the longest substring without repeating character 
+// it has O(n3) Solution 
+import java.util.*;
+public class DynamicProgramming 
+{
+	public static boolean areDistinct(String str,int i,int j)
+	{
+		boolean visited[] = new boolean[26];
+		for(int k=i;k<=j;k++)
+		{
+			if(visited[str.charAt(k)-'a']==true)
+				return false;
+			visited[str.charAt(k)-'a']=true;
+		}
+		return true;
+	}
+	public static int longestSubstring(String str)
+	{
+		int res = Integer.MIN_VALUE;
+		for(int i=0;i<str.length();i++)
+		{
+			for(int j=i;j<str.length();j++)
+			{
+				if(areDistinct(str,i,j))
+					res= Math.max(res, j-i+1);
+			}
+		}
+		return res;
+	}
+	public static void main(String[] args) 
+	{
+		String str = "geeksforgeeks";
+		
+		System.out.println(longestSubstring(str));
+	}
+}
+// It has O(n2) Solution
+
+import java.util.*;
+public class DynamicProgramming 
+{
+	public static int longestSubstring(String str)
+	{
+		int res = Integer.MIN_VALUE;
+		for(int i=0;i<str.length();i++)
+		{
+			boolean visited[] = new boolean[26];
+			for(int j=i;j<str.length();j++)
+			{
+				if(visited[str.charAt(j)-'a']==true)
+					break;
+				else
+				{
+					res = Math.max(res,j-i+1);
+					visited[str.charAt(j)-'a']=true;
+				}
+			}
+			visited[str.charAt(i)-'a']=false;
+		}
+		return res;
+	}
+	public static void main(String[] args) 
+	{
+		String str = "geeksforgeeks";
+		
+		System.out.println(longestSubstring(str));
+	}
+}
+//O(n) Solution
+
+import java.util.*;
+public class DynamicProgramming 
+{
+	public static int longestSubstring(String str)
+	{
+		int res = Integer.MIN_VALUE;
+		int j=-1;
+		HashMap<Character,Integer> map = new HashMap<Character,Integer>();
+		//int p=0;
+		while(j<str.length()-1)
+		{
+			j++;
+			char ch = str.charAt(j);
+			if(map.containsKey(ch))
+			{
+				res = Math.max(res, map.size());
+				//System.out.println(str.substring(p,j));
+				map.clear();
+				map.put(ch,1);
+				//p=j;
+			}
+			else
+			{
+				map.put(ch, map.getOrDefault(ch, 0)+1);
+			}
+		}
+		return res;
+	}
+	public static void main(String[] args) 
+	{
+		String str = "ABDEFGABEF";
+		
+		System.out.println(longestSubstring(str));
+	}
+}
+
