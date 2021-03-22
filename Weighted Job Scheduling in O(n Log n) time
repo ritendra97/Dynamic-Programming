@@ -1,0 +1,55 @@
+//Weighted Job Scheduling in O(n Log n) time
+import java.util.*;
+class job implements Comparator<job>
+{
+	int start;
+	int finish;
+	int profit;
+	job(int start,int finish,int profit)
+	{
+		this.start=start;
+		this.finish=finish;
+		this.profit=profit;
+	}
+
+	public int compare(job o1, job o2) {
+		return o1.finish-o2.finish;
+	}
+}
+public class DynamicProgramming 
+{
+	public static int maximum(ArrayList<job> jobs)
+	{
+		int LIS[] = new int[jobs.size()];
+		
+		LIS[0] = jobs.get(0).profit;
+		for(int i=0;i<jobs.size();i++)
+		{
+			for(int j=0;j<i;j++)
+			{
+				if(jobs.get(j).start<=jobs.get(i).start)
+				{
+					LIS[i] = Math.max(LIS[i], jobs.get(j).profit+jobs.get(i).profit);
+				}
+			}
+		}
+		int result=Integer.MIN_VALUE;
+		
+		for(int i = 0;i<jobs.size();i++)
+		{
+			if(result<LIS[i])
+				result = LIS[i];
+		}
+		return result;
+	}
+	public static void main(String[] args) 
+	{
+		ArrayList<job> jobs = new ArrayList<job>();
+		jobs.add(new job(3,10,20));
+		jobs.add(new job(1,2,50));
+		jobs.add(new job(6,19,100));
+		jobs.add(new job(2,100,200));
+		
+		System.out.println(maximum(jobs));
+	}
+}
