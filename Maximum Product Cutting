@@ -1,0 +1,36 @@
+//Maximum Product Cutting
+import java.util.*;
+public class DynamicProgramming 
+{
+	public static int maxproduct(int n)
+	{
+		int dp[] = new int[n+1];
+		
+		if(n==2)
+			return 2;
+		
+		dp[0]=0;
+		dp[1]=1;
+		dp[2]=2;
+		for(int i=3;i<=n;i++)
+		{
+			dp[i]=i;
+			int li=1;
+			int ri=i-1;
+			while(li<=ri)
+			{
+				if(dp[i]<dp[li]*dp[ri])
+					dp[i]=dp[li]*dp[ri];
+				li++;
+				ri--;
+			}
+		}
+		return dp[n];
+	}
+	public static void main(String[] args) 
+	{
+		int n =10;
+		
+		System.out.println(maxproduct(n));
+	}
+}
