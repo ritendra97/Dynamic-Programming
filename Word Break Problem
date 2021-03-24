@@ -1,0 +1,44 @@
+import java.util.*;
+public class DynamicProgramming 
+{
+	public static boolean wordBreak(String word,Set<String> dictionary)
+    {
+		int size = word.length();
+		int dp[]=new int[size];
+		for (int i = 0; i <size; i++)
+	    {		
+			for(int j=0;j<i;j++)
+			{
+				String temp = word.substring(j,i+1);
+				if(dictionary.contains(temp))
+				{
+					if(j>0)
+						dp[i]+=dp[j-1];
+					else
+						dp[i]+=1;
+				}
+			}
+	    }
+		return dp[size-1]>0;
+    }
+	public static void main(String[] args) 
+	{
+		String temp_dictionary[] = {"mobile","samsung","sam","sung",
+                "man","mango","icecream","and",
+                "go","i","like","ice","cream"};
+         
+		Set<String> dictionary = new HashSet<>();
+		 
+        for (String temp :temp_dictionary)
+        { 
+              dictionary.add(temp);
+        }
+        
+        System.out.println(wordBreak("ilikesamsung",dictionary));
+        System.out.println(wordBreak("iiiiiiii",dictionary));
+        System.out.println(wordBreak("",dictionary));
+        System.out.println(wordBreak("ilikelikeimangoiii",dictionary));
+        System.out.println(wordBreak("samsungandmango",dictionary));
+        System.out.println(wordBreak("samsungandmangok",dictionary));
+	}
+}
