@@ -1,0 +1,80 @@
+//Highway Billboard Problem
+import java.util.*;
+public class DynamicProgramming 
+{
+	public static int maxRevenue(int m, int[] x,int[] revenue,int n, int t) 
+    {  	
+		int dp[] = new int[n];
+		
+		dp[0] = revenue[0];
+		
+		int max_rev=0;
+		
+		for(int i=1;i<n;i++)
+		{
+			int max = 0;
+			for(int j=0;j<i;j++)
+			{
+				int dis = x[i]-x[j];
+				if(dis>t)
+				{
+					max= Math.max(max, dp[j]);
+				}
+			}
+			dp[i] = revenue[i]+max;
+			max_rev = Math.max(max_rev, dp[i]);		
+		}
+		
+		return max_rev;
+    }
+	public static void main(String[] args) 
+	{
+		int m = 20; 
+	    int[] x = new int[]{6, 7, 12, 13, 14}; 
+	    int[] revenue = new int[]{5, 6, 5, 3, 1}; 
+	    int n = x.length; 
+	    int t = 5; 
+	    System.out.println(maxRevenue(m, x, revenue, n, t)); 
+	}
+}
+// optimized code
+import java.util.*;
+public class DynamicProgramming 
+{
+	public static int maxRevenue(int m, int[] x,int[] revenue,int n, int t) 
+    {  	
+		int dp[] = new int[m+1];
+		
+		HashMap<Integer,Integer> hm = new HashMap<Integer,Integer>();
+		for(int i=0;i<x.length;i++)
+		{
+			hm.put(x[i],revenue[i]);
+		}
+		dp[0] =0;
+		for(int i=1;i<=m;i++)
+		{
+			if(hm.containsKey(i)==false)
+			{
+				dp[i]=dp[i-1];
+			}
+			else
+			{
+				int boardnotinstalled = dp[i-1];
+				int boardinstalled = dp[i-t-1]+0+hm.get(i);
+				
+				dp[i] = Math.max(boardnotinstalled, boardinstalled);
+			}
+		}
+		return dp[m];
+    }
+	public static void main(String[] args) 
+	{
+		int m = 20; 
+	    int[] x = new int[]{6, 7, 12, 13, 14}; 
+	    int[] revenue = new int[]{5, 6, 5, 3, 1}; 
+	    int n = x.length; 
+	    int t = 5; 
+	    System.out.println(maxRevenue(m, x, revenue, n, t)); 
+	}
+}
+
