@@ -1,0 +1,26 @@
+//Binomial Cofficient
+import java.util.*;
+public class DynamicProgramming 
+{
+	public static int BinomialCofficient(int n,int r)
+	{
+		int C[][] = new int[n + 1][r + 1];
+        int i, j;
+
+        for (i = 0; i <= n; i++) {
+            for (j = 0; j <= Math.min(i, r); j++) {
+                if (j == 0 || j == i)
+                    C[i][j] = 1;
+                else
+                    C[i][j] = C[i - 1][j - 1] + C[i - 1][j];
+            }
+        }
+        return C[n][r];
+	}
+	public static void main(String[] args) 
+	{
+		int n = 3;
+		int r = 2;
+		System.out.println(BinomialCofficient(n,r));
+	}
+}
