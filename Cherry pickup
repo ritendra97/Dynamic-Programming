@@ -1,0 +1,40 @@
+//Cherry pickup
+import java.util.*;
+public class DynamicProgramming 
+{
+	
+	public static int maimumpath(int grid[][],int r1,int c1,int r2,int c2)
+	{
+		if(r1<0 || r1>=grid.length || c1<0 || c1>=grid.length|| r2<0 ||r2>=grid.length ||c2<0 || c2>=grid.length || grid[r1][c1]==-1 || grid[r2][c2]==-1)
+			return Integer.MIN_VALUE;
+		
+		int cherry=0;
+		
+		if(r1==grid.length-1 && c1==grid.length-1 && r2==grid.length-1 && c2==grid.length-1)
+			return cherry;
+		
+		if(r1==r2 || c1==c2)
+		{
+			cherry+=grid[r1][c1];
+		}
+		else	
+		{
+			cherry+=grid[r1][c1]+grid[r2][c2];
+		}
+		int temp1 = maimumpath(grid,r1+1,c1, r2+1,c2);
+		int temp3 = maimumpath(grid,r1+1,c1, r2,c2+1);
+		int temp4 = maimumpath(grid,r1,c1+1, r2+1,c2);
+		int temp2 = maimumpath(grid,r1,c1+1, r2,c2+1);
+		
+		cherry+= Math.max(Math.max(temp1, temp2), Math.max(temp3, temp4));
+		return cherry;
+	}
+	public static void main(String[] args) 
+	{
+		int grid[][] = {{0,1,-1},
+				        {1,0,-1},
+				        {1,1,1}};
+		System.out.println(maimumpath(grid,0,0,0,0));
+	}
+}
+// This below is dp Solution
