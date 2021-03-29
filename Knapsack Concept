@@ -66,3 +66,31 @@ public class DynamicProgramming
 	}
 
 }
+// Memoziation
+class Solution 
+{ 
+    static int knapSackUtil(int W, int wt[], int val[], int n,int t[][]) 
+    {
+        if(n==0|| W==0)
+			return 0;
+		if(t[n][W]!=-1)
+		   return t[n][W];
+		   
+		if(wt[n-1]>W)
+			return t[n][W]= knapSackUtil(W,wt,val,n-1,t);
+		else
+			return t[n][W]= Math.max(val[n-1]+knapSackUtil(W-wt[n-1],wt,val,n-1,t), knapSackUtil(W,wt,val,n-1,t));
+    }    
+    static int knapSack(int W, int wt[], int val[], int n) 
+    {
+        int t[][] = new int[n + 1][W + 1];
+     
+    // Loop to initially filled the
+    // table with -1
+        for(int i = 0; i < n + 1; i++)  
+           for(int j = 0; j < W + 1; j++)  
+               t[i][j] = -1;
+               
+        return knapSackUtil(W, wt,val,n,t);       
+    } 
+}
