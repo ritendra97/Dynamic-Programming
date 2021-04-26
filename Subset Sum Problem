@@ -1,5 +1,42 @@
 //Subset Sum Problem 
 // here we have both solution bruteforce and DP
+
+import java.util.*;
+//Subset Sum Problem 
+public class Solution 
+{
+   public static boolean subsetSumProblemUtil(int index, int arr[],int sum,boolean dp[][]) {
+    	
+	   if(sum==0)
+		   return true;
+	   if(index==arr.length)
+		   return false;
+	   
+	   if(dp[index][sum]!=false)
+		   return dp[index][sum];
+	   
+	   if(arr[index]>sum)
+		   return subsetSumProblemUtil(index+1,arr,sum,dp);
+	   else {
+		   dp[index][sum] = subsetSumProblemUtil(index+1,arr,sum-arr[index],dp);
+	       dp[index][sum] = subsetSumProblemUtil(index+1,arr,sum,dp);
+	   }
+	   
+       return dp[index][sum];
+    }
+    public static boolean subsetSumProblem(int arr[],int sum) {
+    	
+    	boolean dp[][] = new boolean[100][100];
+    	return subsetSumProblemUtil(0,arr,sum,dp);
+    }
+	public static void main(String[] args) {
+		
+		int arr[] = {3, 34, 4, 12, 5, 2};
+		int sum =78;
+		System.out.println(subsetSumProblem(arr,sum));
+	}
+}
+
 import java.util.*;
 public class DynamicProgramming 
 {
