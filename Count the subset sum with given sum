@@ -1,4 +1,35 @@
 //Count the subset sum with given sum
+// Recursion Solution
+import java.util.*;
+//Count of subsets with sum equal to X 
+public class Solution 
+{
+    public static int subsetSumProblemUtil(int index,int arr[],int sum,int target,int count) {
+    	
+    	if(index==arr.length)
+    	{	
+        	if(sum==0)
+        		count++;
+        	return count;
+    	}
+    	
+    	count = subsetSumProblemUtil(index+1,arr,sum-arr[index],target,count); 
+    	count = subsetSumProblemUtil(index+1,arr,sum,target,count);
+    	
+    	return count;
+    }
+    public static int subsetSumProblem(int arr[],int sum) {
+    	return subsetSumProblemUtil(0,arr,sum,0,0);
+    }
+	public static void main(String[] args) {
+		
+		int arr[] = {1, 2, 3, 3};
+		int sum = 6;
+		System.out.println(subsetSumProblem(arr,sum));
+	}
+}
+// Memoziation Solution
+
 import java.util.*;
 public class DynamicProgramming 
 {
