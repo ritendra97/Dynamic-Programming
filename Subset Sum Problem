@@ -37,6 +37,12 @@ public class Solution
 	}
 }
 
+
+// Below approach
+//This means that if current element has value greater than ‘current sum value’ we will copy the answer for previous cases
+//And if the current sum value is greater than the ‘ith’ element we will see if any of previous states have already experienced the sum=’j’
+//OR any previous states experienced a value ‘j – A[i]’ which will solve our purpose.
+
 import java.util.*;
 public class DynamicProgramming 
 {
