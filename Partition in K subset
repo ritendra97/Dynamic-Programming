@@ -1,4 +1,28 @@
 import java.util.*;
+// Time Complexity will be 2^n because every time i am having two choice ;
+public class Recursion 
+{
+	public static int countP(int n, int k){
+		
+		if(n==0 || k==0 || k>n)
+			return 0;
+		
+		if(k==1 || k==n)
+			return 1;
+		
+		int cnp = countP(n-1,k-1);//create new partition
+		int oep = k*countP(n-1,k);// add already exist partition
+		
+		return cnp+oep;
+    }
+	public static void main(String[] args){
+	
+		System.out.println(countP(4,3));
+	}
+}
+
+// Time Complexity will be O(m*n)
+import java.util.*;
 public class Recursion 
 {
 	public static long partitionKSubset(int n, int k)
