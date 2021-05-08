@@ -1,0 +1,33 @@
+// Bruteforce Algorithm
+import java.util.*;
+//Sum of subset differences
+public class Solution 
+{
+	static int sum=0;
+    public static void helper(int index, int[] nums, ArrayList<Integer> curr){
+        
+        if(index==nums.length){
+        	if(curr.size()>1) {
+        		sum+=curr.get(curr.size()-1)-curr.get(0);
+        	}else {
+        		sum+=0;
+        	}
+            return;
+        }
+        curr.add(nums[index]);
+        helper(index+1,nums,curr);
+        curr.remove(curr.size()-1);
+        helper(index+1,nums,curr);
+    }
+    public static int subsets(int[] nums) {
+        
+        helper(0,nums,new ArrayList<>());
+        return sum;
+    }
+	public static void main(String[] args) {
+	
+		int arr[] = {5, 2, 9, 6};
+		
+		System.out.println(subsets(arr));
+	}
+}
