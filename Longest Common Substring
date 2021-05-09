@@ -1,6 +1,34 @@
 //Longest Common Substring
 // recursion +memoziation
 
+// instead of using below use this with memoziation because her i have not defined result as a global variable 
+import java.util.*;
+//Longest common subsequences.
+public class Solution 
+{
+	public static int lcs(char X[],char Y[],int m,int n,int count){
+		if(m==0|| n==0)
+			return count;
+		
+		if(X[m-1]==Y[n-1])
+		{
+			count=lcs(X,Y,m-1,n-1,count+1);	
+		}
+		int result = Math.max(Math.max(lcs(X,Y,m-1,n,0),lcs(X,Y,m,n-1,0)),count);
+		return result;
+	}
+	public static void main(String[] args) {
+		
+		String X = "abcdxyz";
+	    String Y = "xyzabcd";
+       
+        int m = X.length();
+        int n = Y.length();
+        
+        System.out.println(lcs(X.toCharArray(),Y.toCharArray(), m,n,0));
+	}
+}
+
 import java.util.*;
 public class DynaminProgramming 
 {   
