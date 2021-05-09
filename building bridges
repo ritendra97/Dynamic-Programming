@@ -1,5 +1,5 @@
 
-// COmplexity will be O(n2)
+// COmplexity will be O(nlogn)
 import java.util.*;
 class cityPairs implements Comparable<cityPairs> {
 	int north,south;
