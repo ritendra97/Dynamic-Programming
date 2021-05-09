@@ -1,4 +1,6 @@
 //Minimum number of increasing subsequences
+// First try to solve this by using O(n^2) Complexity
+
 import java.util.*;
 public class DynamicProgramming 
 {
