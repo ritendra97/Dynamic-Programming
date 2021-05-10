@@ -1,4 +1,4 @@
-//Weighted Job Scheduling in O(n Log n) time
+//Weighted Job Scheduling in O(n^2) time
 import java.util.*;
 class job implements Comparator<job>
 {
@@ -51,5 +51,76 @@ public class DynamicProgramming
 		jobs.add(new job(2,100,200));
 		
 		System.out.println(maximum(jobs));
+	}
+}
+//TC-> O(n(logn))
+// Longest decreasing subsequence
+import java.util.*;
+class job {
+	int start;
+	int finish;
+	int profit;
+	
+	job(int start,int finish,int profit){	
+		this.start=start;
+		this.finish=finish;
+		this.profit=profit;
+	}
+}
+public class Solution 
+{
+	public static int binarySearch(int end,job jobs[]) {
+		
+		int low = 0;
+		int high = end-1;
+		while(low<high) {
+			
+			int mid = low+(high-low)/2;
+			if(jobs[mid].finish<=jobs[high].start) {
+				if(jobs[mid+1].finish<=jobs[high].start) {
+					low = mid+1;
+				}else {
+					return mid;
+				}
+			}else {
+				high = mid-1;
+			}
+		}
+		return -1;
+	}
+	
+	public static int maximum_profit(job jobs[]) {
+		
+		Arrays.sort(jobs,new Comparator<job>() {
+			
+			public int compare(job j1,job j2) {		
+				return j1.finish-j2.finish;
+			}
+			
+		});
+		
+		int n = jobs.length;
+		int LIS[] = new int[n];
+		LIS[0] = jobs[0].profit;
+		
+		LIS[0] = jobs[0].profit;
+		for(int i=1;i<n;i++) {
+			
+			int intprofit = jobs[i].profit;
+			int l = binarySearch(i,jobs);
+			
+			if(l!=-1) {
+				intprofit+=LIS[l];
+			}
+			LIS[i] = Math.max(intprofit, LIS[i-1]);
+		}
+		return LIS[n-1];
+	}
+	public static void main(String[] args) {
+		
+		job jobs[] = {new job(1, 2, 50), new job(3, 5, 20),
+                new job(6, 19, 100), new job(2, 100, 200)};
+		
+		System.out.println(maximum_profit(jobs));
 	}
 }
