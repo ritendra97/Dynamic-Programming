@@ -13,3 +13,22 @@ public static int catalonNo(int n)
 		}
 		return DP[n];
 	}
+// Using formula 
+public class Solution 
+{
+	public static void catalanNo(int n) {
+		
+		int cat_=1;
+		System.out.println(cat_);
+		
+		for(int i =1;i<n;i++) {
+			cat_ *= (4*i-2);
+			cat_/=i+1;
+			System.out.println(cat_);
+		}
+	}
+	public static void main(String[] args) {
+		
+		catalanNo(4);
+	}
+}
