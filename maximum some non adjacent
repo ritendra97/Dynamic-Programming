@@ -1,4 +1,26 @@
 //maximum some non adjacent
+// TC-> Exponantial(2^n)
+import java.util.*;
+public class NewPractice 
+{
+	public static int max_sum (int arr[],int i) {
+		
+		if(i==0)
+			return arr[i];
+		if(i==1)
+			return Math.max(arr[i-1], arr[i]);
+		else
+			return Math.max(max_sum(arr, i-1), arr[i]+max_sum(arr,i-2));
+	}
+	public static void main(String[] args) 
+	{
+		int arr[] = {2,4,6,2,5};
+		
+		System.out.println(max_sum(arr,arr.length-1));
+		
+	}
+}
+
 import java.util.*;
 public class DynamicProgramming 
 {
