@@ -1,0 +1,96 @@
+//Form a palindrome 
+Time Complexity O(n^3)
+import java.util.*;
+//Palindrome Partitioning
+
+public class Solution {
+    
+	public static boolean isPalindrome(String str) {
+		
+		int i = 0;
+		int j = str.length()-1;
+		while(i<=j) {
+			if(str.charAt(i)!=str.charAt(j)) {
+				return false;
+				
+			}
+			i++;
+			j--;
+		}
+		return true;
+	}
+	
+    public static int findMinInsertions(String S){
+       
+        StringBuilder sb = new StringBuilder();
+        int length=Integer.MAX_VALUE;
+        if(isPalindrome(S))
+        	return 0;
+        for(int i=0;i<S.length();i++) {
+            
+    		for(int j = S.length()-1;j>=i;j--) {
+    			
+    			sb.append(S.substring(i,j+1)).reverse();
+    			System.out.println("This is only sb: "+sb);
+    			sb.append(S);
+    			System.out.println(sb);
+    			if(isPalindrome(sb.toString())) {
+    				
+    				if(length>S.substring(i,j+1).length()) {
+    					length = S.substring(i,j+1).length();
+    				}
+    			}
+    			sb.delete(0,sb.length());
+    		}
+    		
+    	}
+        return length;
+    }
+	public static void main(String args[]) {
+		String S = "abcde";
+		System.out.println(findMinInsertions(S));
+    }
+}
+TC-> O(n^2)
+import java.util.*;
+//Palindrome Partitioning
+
+public class Solution {
+    
+	public static int lcs( char[] X, char[] Y, int m, int n) 
+	{
+		int DP[][] = new int[m+1][n+1];
+		
+		for(int i=0;i<=m;i++)
+		{
+			for(int j=0;j<=n;j++)
+			{
+				if(i==0 || j==0)
+					DP[i][j]=0;
+				else if(X[i-1]==Y[j-1])
+					DP[i][j]=DP[i-1][j-1]+1;
+				else
+					DP[i][j]=Math.max(DP[i-1][j], DP[i][j-1]);
+			}
+		}
+		
+		return DP[m][n];
+	}
+	
+    public static int findMinInsertions(String S){
+     
+    	StringBuilder sb = new StringBuilder();
+    	sb.append(S);
+    	char X[] = S.toCharArray();
+    	char Y[] = sb.append(S).reverse().toString().toCharArray();
+    	int m = S.length();
+    	int n = S.length();
+    	int ans = m-lcs( X, Y, m, n);
+    	
+    	return ans;
+    }
+	public static void main(String args[]) {
+		String S = "abcd";
+		System.out.println(findMinInsertions(S));
+    }
+}
