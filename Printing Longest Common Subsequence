@@ -1,0 +1,66 @@
+//Printing Longest Common Subsequence
+package Coding_Practice;
+
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
+
+public class Test {
+	
+	public static void longest_subsequence(String str1, String str2) {
+
+		char s1[] = str1.toCharArray();
+		char s2[] = str2.toCharArray();
+		int m = str1.length();
+		int n = str2.length();
+
+		int dp[][] = new int[s1.length + 1][s2.length + 1];
+
+		for (int i = 1; i <= s1.length; i++) {
+
+			for (int j = 1; j <= s2.length; j++) {
+
+				if (s1[i - 1] == s2[j - 1]) {
+					dp[i][j] = dp[i - 1][j - 1] + 1;
+				} else {
+					dp[i][j] = Math.max(dp[i - 1][j], dp[i][j-1]);
+				}
+			}
+		}
+
+		int index = dp[m][n];
+		int temp = index;
+
+		char[] lcs = new char[index + 1];
+		lcs[index] = '\u0000'; // Set the terminating character
+
+		int i = m;
+		int j = n;
+		while (i > 0 && j > 0) {
+	
+			if (str1.charAt(i - 1) == str2.charAt(j - 1)) {
+	
+				lcs[index - 1] = str1.charAt(i - 1);
+				i--;
+				j--;
+				index--;
+			}
+
+			else if (dp[i - 1][j] > dp[i][j - 1])
+				i--;
+			else
+				j--;
+		}
+		
+		System.out.print("LCS of " + str1 + " and " + str2 + " is ");
+		for (int k = 0; k <= temp; k++)
+			System.out.print(lcs[k]);
+	}
+
+	public static void main(String[] args) {
+		String s1 = "AGGTAB";
+		String s2 = "GXTXAYB";
+		longest_subsequence(s1, s2);
+		System.out.println();
+	}
+}
