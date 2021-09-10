@@ -1,6 +1,33 @@
 //Subset Sum Problem 
 // here we have both solution bruteforce and DP
 
+import java.util.Arrays;
+
+public class DynamicPrograming {
+
+	static boolean isSubsetSum(int set[], int n, int sum) {
+		
+		if (n == 0)
+			return true;
+		
+		if(sum==0)
+			return false;
+		if(set[n-1]>sum)
+			return isSubsetSum(set,n-1,sum);
+		else 
+			return isSubsetSum(set,n-1,sum) || isSubsetSum(set,n-1,sum-set[n-1]);
+		
+	}
+
+	public static void main(String[] args) {
+
+		int set[] = { 3, 34, 4, 12, 5, 2 };
+		int sum = 9;
+
+		System.out.println(isSubsetSum(set,set.length-1,9));
+	}
+}
+
 import java.util.*;
 //Subset Sum Problem 
 public class Solution 
