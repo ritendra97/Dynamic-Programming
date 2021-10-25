@@ -1,4 +1,39 @@
 //Longest Palindromic Subsequence
+
+import java.util.HashMap;
+
+public class DynamicProgramming {
+
+	public static int longestPalindromesquence_(int i, int j, char[] str, int dp[][]) {
+
+		if (i == j)
+			return 1;
+
+		if (i > j)
+			return 0;
+
+		if (str[i] == str[j]) {
+			return dp[i][j] = 2 + longestPalindromesquence_(i + 1, j - 1, str, dp);
+
+		return dp[i][j] = Math.max( longestPalindromesquence_(i + 1, j, str, dp),  longestPalindromesquence_(i, j - 1, str, dp)  );
+
+	}
+
+	public static int longestPalindromesquence(String s) {
+		
+		char str[] = s.toCharArray();
+		int dp[][] = new int[str.length][str.length];
+		
+		return longestPalindromesquence_(0, str.length-1, str, dp);
+	}
+
+	public static void main(String[] args) {
+		
+		String s = "anana";
+		System.out.println(longestPalindromesquence(s));
+	}
+}
+
 import java.util.*;
 public class DynamicProgramming 
 {
