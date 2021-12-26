@@ -31,6 +31,11 @@ class Solution {
 }
 
 // Equal Sum Partition Problem
+
+This means that if the current element has a value greater than the ‘current sum value’ we will copy the answer for previous cases
+And if the current sum value is greater than the ‘ith’ element we will see if any of the previous states have already
+experienced the sum=’j’ and any previous states experienced a value ‘j – A[i]’ which will solve our purpose
+
 import java.util.*;
 public class DynamicProgramming 
 {
