@@ -1,0 +1,40 @@
+//Maximum number of segments of lengths a, b and c
+
+import java.util.Arrays;
+import java.util.Scanner;
+
+public class Main2{
+
+    public static int Solve(int n, int a, int b, int c, int dp[]){
+
+        if(n==0) return 0;
+
+        if(dp[n]!=-1) return dp[n];
+
+        int op1=Integer.MIN_VALUE,op2=Integer.MIN_VALUE,op3=Integer.MIN_VALUE;
+        if(n>=a){
+            op1=Solve(n-a,a,b,c,dp);
+        }
+        if(n>=b){
+           op2=Solve(n-b,a,b,c,dp);
+        }
+        if(n>=c){
+           op3=Solve(n-c,a,b,c,dp);
+        }
+        return dp[n] = 1+Math.max(op1,Math.max(op2,op3));
+    }
+    public static void main(String[] args){
+        Scanner sc = new Scanner(System.in);
+        System.out.print("Please write the value of length segment: ");
+        int n = sc.nextInt();
+        System.out.print("Please write the value of a and b and c: ");
+        int a = sc.nextInt();
+        int b = sc.nextInt();
+        int c = sc.nextInt();
+
+        int dp[] = new int[n+1];
+        Arrays.fill(dp,-1);
+
+        System.out.println(Solve(n,a,b,c,dp));
+    }
+}
