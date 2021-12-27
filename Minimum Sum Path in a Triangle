@@ -1,0 +1,30 @@
+//Minimum Sum Path in a Triangle
+
+public class Main2{
+
+    public static int minPath(int arr[][]){
+
+        int memo[] = new int[arr.length];
+        int n = arr.length-1;
+        for(int i = 0;i<arr[n].length;i++){
+            memo[i] = arr[n][i];
+        }
+
+        for(int i = arr.length-2;i>=0;i--){
+            for(int j = 0;j<arr[i].length;j++){
+                memo[j] = arr[i][j]+(int)Math.min(memo[j],memo[j+1]);
+            }
+        }
+
+        return memo[0];
+    }
+
+    public static void main(String[] args){
+
+        int arr[][] = { {2},
+                        {3,9},
+                        {1,6,7}};
+
+        System.out.println(minPath(arr));
+    }
+}
