@@ -1,2 +1,26 @@
 //Target Sum 
 this is also like count no of subset with the given subset they just changed it's name
+public class Main4 {
+
+    public static int Helper(int[] A, int index, int sum,int target){
+
+        if(index==A.length){
+            if(sum==target) return 1;
+            else return 0;
+        }
+        
+        int add = Helper(A,index+1,sum+A[index],target);
+        int subtract =  Helper(A,index+1,sum-A[index],target);
+        return add+subtract;
+    }
+
+    public static int findTargetSumWays(int[] A , int N, int target) {
+        return Helper(A,0,0,target);
+    }
+
+    public static void main(String[] args){
+        int A[] = {1, 1, 1, 1, 1};
+        int target = 3;
+        System.out.println(findTargetSumWays(A,A.length,target));
+    }
+}
