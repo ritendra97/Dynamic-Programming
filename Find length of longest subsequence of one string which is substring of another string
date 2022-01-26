@@ -1,0 +1,28 @@
+import java.util.*;
+
+public class Main4 {
+
+    public static int Solution(String x, String y, int m, int n, int dp[][]){
+            if(m==0 || n==0) return 0;
+
+            if(dp[m][n]!=-1) return dp[m][n];
+
+            if(x.charAt(m)==y.charAt(n)){
+                return dp[m][n] = 1+Solution(x,y,m-1,n-1, dp);
+            }else{
+                return dp[m][n] = Solution(x,y,m,n-1, dp);
+            }
+    }
+
+    public static void main(String[] args){
+        String x = "ABCD";
+        String y = "BACDBDCD";
+        int m = x.length();
+        int n = y.length();
+        int dp[][] = new int[m][n];
+        for(int row[]:dp) {
+            Arrays.fill(row, -1);
+        }
+        System.out.println(Solution(x,y,m-1,n-1, dp));
+    }
+}
