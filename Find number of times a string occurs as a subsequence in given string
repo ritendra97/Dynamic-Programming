@@ -1,0 +1,110 @@
+
+import java.io.*;
+
+class GFG
+{
+	
+	// Recursive function to find the number of times
+	// the second string occurs in the first string,
+	// whether continuous or discontinuous
+	static int count(String a, String b, int m, int n)
+	{
+		// If both first and second string is empty,
+		// or if second string is empty, return 1
+		if ((m == 0 && n == 0) || n == 0)
+			return 1;
+	
+		// If only first string is empty and
+		// second string is not empty, return 0
+		if (m == 0)
+			return 0;
+	
+		// If last characters are same
+		// Recur for remaining strings by
+		// 1. considering last characters of
+		// both strings
+		// 2. ignoring last character of
+		// first string
+		if (a.charAt(m - 1) == b.charAt(n - 1))
+			return count(a, b, m - 1, n - 1) +
+				count(a, b, m - 1, n);
+		else
+			// If last characters are different,
+			// ignore last char of first string
+			// and recur for remaining string
+			return count(a, b, m - 1, n);
+	}
+	
+	// Driver code
+	public static void main (String[] args)
+	{
+		String a = "GeeksforGeeks";
+		String b = "Gks";
+		System.out.println( count(a, b, a.length(), b.length())) ;
+	
+	}
+}
+
+import java.io.*;
+
+class GFG
+{
+	
+// Iterative DP function to
+// find the number of times
+// the second string occurs
+// in the first string, whether
+// continuous or discontinuous
+static int count(String a, String b)
+{
+	int m = a.length();
+	int n = b.length();
+
+	// Create a table to store
+	// results of sub-problems
+	int lookup[][] = new int[m + 1][n + 1];
+
+	// If first string is empty
+	for (int i = 0; i <= n; ++i)
+		lookup[0][i] = 0;
+
+	// If second string is empty
+	for (int i = 0; i <= m; ++i)
+		lookup[i][0] = 1;
+
+	// Fill lookup[][] in
+	// bottom up manner
+	for (int i = 1; i <= m; i++)
+	{
+		for (int j = 1; j <= n; j++)
+		{
+			// If last characters are
+			// same, we have two options -
+			// 1. consider last characters
+			// of both strings in solution
+			// 2. ignore last character
+			// of first string
+			if (a.charAt(i - 1) == b.charAt(j - 1))
+				lookup[i][j] = lookup[i - 1][j - 1] +
+							lookup[i - 1][j];
+				
+			else
+				// If last character are
+				// different, ignore last
+				// character of first string
+				lookup[i][j] = lookup[i - 1][j];
+		}
+	}
+
+	return lookup[m][n];
+}
+
+// Driver Code
+public static void main (String[] args)
+{
+	String a = "GeeksforGeeks";
+	String b = "Gks";
+	
+	System.out.println(count(a, b));
+}
+}
