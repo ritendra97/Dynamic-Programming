@@ -8,10 +8,10 @@ public class DynamicPrograming {
 	static boolean isSubsetSum(int set[], int n, int sum) {
 		
 		if (n == 0)
-			return true;
+			return false;
 		
 		if(sum==0)
-			return false;
+			return true;
 		if(set[n-1]>sum)
 			return isSubsetSum(set,n-1,sum);
 		else 
