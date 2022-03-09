@@ -1,4 +1,22 @@
-//maximum subsequence sum such that no three are consecutive 
+//maximum subsequence sum such that no three are consecutive 	
+public class Main4 {
+
+    public static int Solution(int arr[], int n){
+
+        if(n<=-1) return 0;
+        if(n==0) return arr[0];
+        if(n==1) return arr[0]+arr[1];
+
+        return  Math.max(Math.max(Solution(arr,n-1),arr[n]+Solution(arr,n-2)),arr[n]+arr[n-1]+Solution(arr,n-3));
+    }
+
+    public static void main(String[] args){
+        int arr[] = {100, 1000, 100, 1000, 1};
+        System.out.println(Solution(arr,arr.length-1));
+    }
+}
+
+
 import java.util.*;
 public class DyanamicProgramming 
 {
