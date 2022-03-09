@@ -1,5 +1,31 @@
 //Maximum number of segments of lengths a, b and c
 
+public class Main4 {
+    public static int Solution(int length, int p, int q, int r){
+
+        if(length==0) return 0;
+
+        int op1 = Integer.MIN_VALUE,op2 = Integer.MIN_VALUE, op3 = Integer.MIN_VALUE;
+        if(length>=p){
+            op1 = Solution(length-p,p,q,r);
+        }
+        if(length>=q){
+            op2 = Solution(length-q,p,q,r);
+        }
+        if(length>=r){
+            op3 = Solution(length-r,p,q,r);
+        }
+
+        return 1+Math.max(Math.max(op1,op2),op3);
+    }
+    public static void main(String [] args){
+        int length = 7;
+        int p=2,q=5,r=5;
+        System.out.println(Solution(length,p,q,r));
+    }
+}
+
+
 import java.util.Arrays;
 import java.util.Scanner;
 
