@@ -1,4 +1,29 @@
 //Find minimum number of coins that make a given value
+
+public class Solution {
+
+	public static int Helper(int[] coins,int amount, int index, int coin){
+
+        if(amount<0 || index>=coins.length) return Integer.MAX_VALUE;
+
+        if(amount==0){
+            return coin;
+        }
+
+        return Math.min(Helper(coins,amount-coins[index],index, coin+1), Helper(coins,amount,index+1, coin));
+    }
+    public static int coinChange(int[] coins, int amount) {
+        return Helper(coins,amount,0,0);
+    }
+
+    public static void main(String [] args){
+
+        int coins[] = {2,3,5};
+        int amount = 10;
+        System.out.println(coinChange(coins,amount));
+    }
+}
+
 import java.util.*;
 public class DynamicProgramming 
 {
