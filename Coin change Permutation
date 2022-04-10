@@ -1,4 +1,29 @@
-//Coin change Permutation 
+//Coin change Permutation
+
+public class Main5 {
+
+        public static int Helper(int[] coins,int amount, int index, int coin){
+
+            if(amount<0 || index>=coins.length) return 0;
+
+            if(amount==0){
+                return 1;
+            }
+
+            return Helper(coins,amount-coins[index],index, coin+1)+Helper(coins,amount-coins[index],index+1, coin+1);
+        }
+        public static int coinChange(int[] coins, int amount) {
+            return Helper(coins,amount,0,0);
+        }
+
+        public static void main(String [] args){
+
+            int coins[] = {3,3,1};
+            int amount = 4;
+            System.out.println(coinChange(coins,amount));
+        }
+}
+
 import java.util.*;
 public class DynamicProgramming 
 {
